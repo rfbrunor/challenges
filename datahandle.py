@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+
 def list_airbnb_most_rented(path_filtered_price_file, details_itapema_file, file, number_items_rented = 30, save = False, begin_date = None, end_date = None):
     if os.path.exists(path_filtered_price_file):
         df_price_file = pd.read_csv(path_filtered_price_file, low_memory=False)

@@ -1,8 +1,4 @@
-# This is a sample Python script.
 import pandas as pd
-# import matplotlib.pyplot as plt
-# import numpy as np
-# import folium
 import pricehandle as ph
 import datahandle as dh
 import visualdata as vd
