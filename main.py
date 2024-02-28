@@ -15,12 +15,10 @@ pd.set_option('display.float_format', lambda x: '%.2f' % x)
 # Press the green button in the gutter to run the script.
 
 def generate_filtered_price_file(path_price_origin, path_price_filtered):
-    price_file = path_price_origin
     if os.path.exists(path_price_filtered):
-        price_file = path_price_filtered
         print("Found filtered price file")
     else:
-        df_price_file = pd.read_csv(price_file, low_memory=False)
+        df_price_file = pd.read_csv(path_price_origin, low_memory=False)
 
         #configuration
         df_price_file['aquisition_date'] = pd.to_datetime(df_price_file['aquisition_date'])
