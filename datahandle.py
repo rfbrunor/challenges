@@ -1,5 +1,12 @@
 import os
 import pandas as pd
+import numpy as np
+
+def print_nullables(dataframe):
+    df = pd.DataFrame({'nullable values': np.round(dataframe.isnull().mean(), 2),
+                  'data_type': dataframe.dtypes,
+                  'unique_values': dataframe.nunique()})
+    print(df)
 
 def list_airbnb_most_rented(path_filtered_price_file, details_itapema_file, file, number_items_rented = 30, save = False, begin_date = None, end_date = None):
     if os.path.exists(path_filtered_price_file):

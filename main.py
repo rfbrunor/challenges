@@ -1,7 +1,9 @@
-import pandas as pd
 import pricehandle as ph
 import datahandle as dh
+import numpy as np
+import pandas as pd
 import visualdata as vd
+
 
 #config pandas
 pd.set_option('display.max_columns', None)
@@ -24,11 +26,14 @@ if __name__ == '__main__':
     begin_date = pd.to_datetime('2023-01-01')
     end_date = pd.to_datetime('2023-12-31')
 
-    #generate file Price_AV_Itapema_filtered
-    ph.generate_filtered_price_file(price_file_origin, path_filtered_price_file)
+    ids_airbnb = ph.get_ids(details_itapema_file)
+    ph.gen_filtered_price_file_chunk(price_file_origin, path_filtered_price_file, ids_airbnb)
 
-    #get dataframe with mais alugados, average price and others
+    #get dataframe with more rented, average price and others
     df_profile = dh.list_airbnb_most_rented(path_filtered_price_file, details_itapema_file, path_property_profile, number_items_rented, True)
+
+    #check nullable datas
+    dh.print_nullables(df_profile)
 
     #mount graphic prices
     vd.price_graphic(df_profile)
@@ -44,22 +49,3 @@ if __name__ == '__main__':
     dh.average_higher_revenues(df_profile_year_date,number_filter)
 
     print("Finished processing")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
