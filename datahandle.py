@@ -2,6 +2,18 @@ import os
 import pandas as pd
 import numpy as np
 
+
+def print_nan(dataframe):
+    nan_counts = dataframe.isnull().sum()
+    print('\nShow NaN: ')
+    print(nan_counts)
+
+def fill_nan_values(columns_name, dataframe):
+    for col in columns_name:
+        average = dataframe[col].mean()
+        dataframe = dataframe.fillna({col: average})
+    return dataframe
+
 def print_nullables(dataframe):
     df = pd.DataFrame({'nullable values': np.round(dataframe.isnull().mean(), 2),
                   'data_type': dataframe.dtypes,
@@ -38,15 +50,17 @@ def list_airbnb_most_rented(path_filtered_price_file, details_itapema_file, file
         df_ordered_most_rented['revenue'] = df_most_rented['average_price'].values * df_most_rented['number_rented'].values
 
         df_ordered_most_rented = df_ordered_most_rented.sort_values(by='revenue', ascending=False)
-        df_filtered_to_save = df_ordered_most_rented.loc[:, ['ad_id', 'ad_name', 'ad_description', 'number_of_bathrooms', 'number_of_bedrooms','number_of_beds','listing_type', 'average_price','number_rented', 'revenue', 'latitude', 'longitude']]
+        df_filtered_to_save = df_ordered_most_rented.loc[:, ['ad_id', 'ad_name', 'ad_description', 'number_of_bathrooms', 'number_of_bedrooms',
+                                                             'number_of_beds','listing_type', 'average_price','number_rented',
+                                                             'revenue', 'latitude', 'longitude', 'star_rating', 'is_superhost',
+                                                             'number_of_reviews', 'response_rate_shown', 'guest_satisfaction_overall',
+                                                             'picture_count']]
         df_filtered_to_save['ad_name'] = df_filtered_to_save['ad_name'].astype(str).apply(lambda s: s.strip()).apply(lambda s: s.replace("\n", " "))
         df_filtered_to_save['ad_description'] = df_filtered_to_save['ad_description'].astype(str).apply(lambda s: s.strip()).apply(lambda s: s.replace("\n", " "))
 
         if save:
             df_filtered_to_save.to_csv(file, index=False, encoding='utf-8', float_format='%.2f')
         return df_filtered_to_save
-
-
 
 def show_data_more_rented(dataframe, number_filter):
     df_ordered_most_rented = dataframe.sort_values(by='revenue', ascending=False)[:][:number_filter]
