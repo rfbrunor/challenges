@@ -15,6 +15,7 @@ Install components below preferably in virtual env:
 - pip install pandas
 - pip install matplotlib
 - pip install folium
+- pip install scikit-learn
  
 **Instructions for Run**
 

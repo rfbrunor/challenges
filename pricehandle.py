@@ -1,7 +1,5 @@
 import os
 import pandas as pd
-import time
-
 
 def get_ids(path_details_data):
     airbnb_ids = None

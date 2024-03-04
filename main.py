@@ -1,10 +1,8 @@
 import pricehandle as ph
 import datahandle as dh
-import numpy as np
 import pandas as pd
 import visualdata as vd
 import machinedataprevious as mdp
-
 
 
 #config pandas
